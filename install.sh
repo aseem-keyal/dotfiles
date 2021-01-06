@@ -67,16 +67,14 @@ sudo pacman -S --noconfirm git \
 	libva-intel-driver \
 	stow
 
-mkdir ~/code/
-cd ~/code
-git clone <dotfiles url>
+mkdir -p ~/code/ && cd ~/code && git clone https://github.com/aseem-keyal/dotfiles && cd dotfiles
 stow -t ~ */
 
 cd ~ && git clone https://aur.archlinux.org/yay-git.git && cd yay-git
 makepkg -si --noconfirm
 cd ~ && rm -rf yay-git
 
-yay -S lf \
+yay -S --noeditmenu --nodiffmenu --useask --removemake lf \
 	kunst-git \
 	libxft-bgra \
 	mpdris2 \
