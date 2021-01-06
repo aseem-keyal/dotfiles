@@ -1,0 +1,5 @@
+#!/bin/sh
+# zkgt: zettelkasten get tags
+# Description: gets the set of tags used in markdown notes in the current directory
+
+grep -R -oh "#[a-zA-Z].*" *.md | tr ' ' '\n' | sort | uniq -c

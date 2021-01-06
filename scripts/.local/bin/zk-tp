@@ -1,0 +1,7 @@
+#!/bin/sh
+# zktp: zettelkasten tag preview
+# Description: dmenu-based search that:
+#	       1) shows the list of tags in the current directory using zk-gt
+# 	       3) opens zathura with a pdf version of all the notes with the selected tag
+
+(cd ~/documents/zk && zk-gt | awk -F ' ' '{ print $2 }' | dmenu | grep -f - -R *.md -l | xargs cat | mdpreview )

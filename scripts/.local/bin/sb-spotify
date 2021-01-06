@@ -1,0 +1,4 @@
+#!/bin/sh
+
+STATUS=$(playerctl -p ncspot status)
+[ $STATUS != "Stopped" ] && playerctl -p ncspot metadata --format "{{artist}} - {{title}} Status: {{status}}" | sed -e 's/Status: Playing//g' | sed -e 's/Status: Paused//g' | sed -e 's/ - Status: Stopped//g'

@@ -1,0 +1,37 @@
+set sandbox none
+set statusbar-h-padding 0
+set statusbar-v-padding 0
+set adjust-open "best-fit"
+set page-padding 1
+set recolor "true"
+
+map u scroll half-up
+map d scroll half-down
+map D toggle_page_mode
+map r reload
+map R rotate
+map K zoom in
+map J zoom out
+map i recolor
+map p print
+
+set default-bg                     "{color0}"
+set default-fg                     "{color4}"
+set statusbar-bg                   "{color0}"
+set statusbar-fg                   "{color4}"
+set inputbar-bg                    "{color0}"
+set inputbar-fg                    "{color4}"
+set notification-bg                "{color0}"
+set notification-fg                "{color4}"
+set notification-error-bg          "{color0}"
+set notification-error-fg          "{color4}"
+set notification-warning-bg        "{color0}"
+set notification-warning-fg        "{color4}"
+set highlight-color                "{color4}"
+set highlight-active-color         "{color1}"
+set completion-bg                  "{color0}"
+set completion-fg                  "{color4}"
+set completion-highlight-bg        "{color4}"
+set completion-highlight-fg        "{color0}"
+set recolor-lightcolor             "{color0}"
+set recolor-darkcolor              "{color4}"

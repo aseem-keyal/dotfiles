@@ -1,0 +1,7 @@
+[keybindings]
+"1" = "focus queue"
+"3" = "focus search"
+"4" = "focus library"
+"p" = "playpause"
+"s" = "stop"
+"F1" = "help"

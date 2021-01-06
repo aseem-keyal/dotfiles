@@ -1,0 +1,8 @@
+#!/bin/sh
+
+FN="$(cd ~/documents/zk && ls *.md | dmenu)"
+if [ -z $FN ]; then
+	break;
+else
+	st -e zsh -c 'cd ~/documents/zk;nvim '$FN';exec $SHELL'
+fi

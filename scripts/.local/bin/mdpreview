@@ -1,0 +1,5 @@
+#!/bin/sh
+# Description: convert md file to pdf and preview in zathura
+
+if [[ -z $1 ]]; then md2html $1 | htmldoc - --webpage --outfile /tmp/md-preview.pdf &>/dev/null && zathura /tmp/md-preview.pdf; 
+else md2html $1 | htmldoc - --webpage --outfile /tmp/md-preview.pdf &>/dev/null && zathura /tmp/md-preview.pdf; fi

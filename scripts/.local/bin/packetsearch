@@ -1,0 +1,55 @@
+#!/bin/sh
+
+# Description: dmenu-based packet search utility, works by:
+#		1) First type query
+# 		2) Enter directory
+# 		3) Select packet (Ctrl+Enter to select multiple packets)
+# Dependencies: dmenu, recoll, zathura (can be replaced with another pdf viewer)
+
+# Save query using dmenu prompt
+query="$(echo "" | dmenu -p "Query:")"
+
+# Only go further if we have a query
+if [ -n "$query" ]; then
+	# Display choices for directory of search
+	dir="$(echo -e '/\n/Collegiate/\n/HS/\n/MS/' | dmenu)"
+	# Only go further if we have a directory
+	if [ -n "$dir" ]; then
+		# Use bash parameter substitution to get the last word of the query
+		query_last_word="${query##* }"
+		# Use bash parameter substitution to make last word lowercase
+		query_search="${query_last_word,,}"
+		# Go to chosen directory
+		(cd ~/documents/packet_archive$dir && \
+			# Run recoll search using chosen directory
+			recoll -t "dir:documents/packet_archive$dir $query" | 
+			# Use grep with following flags:
+			# -o prints only matching portion
+			# -P uses Perl for non-greedy modifier support (i.e. match first "]")
+			# grep matches the following pattern non-greedily [file:///<anything here>]
+			grep -o -P "\[file:///.*?\]" | 
+			# This line removes everything up to and including the chosen
+			# directory name.
+			# This line uses bash's parameter expansion on the dir variable 
+			# to replace all instances of forward slashes to escaped forward
+			# slashes. This is done by by ${var//pattern/replacement}
+			# The forward slash preceding the pattern means that all instances
+			# of the pattern are replaced with the replacement. Also, the slashes
+			# in both the pattern and replacement must be escaped, which leads to
+			# this mess of slashes
+			sed -e "s/^.*packet_archive${dir//\//\\/}//g; s/\]//g;" | 
+			# This line removes the closing square bracket
+			# sed -e 's/\]//g' | 
+			# Sort the resulting files in reverse order (newer packets first)
+			sort -r | 
+			# Display in dmenu vertically with 35 rows, make search case insensitive
+			dmenu -i -l 35 | 
+			# When using ctrl+Enter in dmenu to select multiple choices, marking
+			# and then pressing enter on a choice causes it to be sent twice.
+			# Use uniq to remove this possible duplication when opening more than one packet
+			uniq | 
+			# Pass selected file or files to xargs (with -r flag in case no file selected)
+			# Open with zathura and try to find query using lowercase last word of search
+			xargs -r zathura -f "$query_search")
+	fi
+fi

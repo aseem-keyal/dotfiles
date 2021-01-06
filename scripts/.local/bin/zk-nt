@@ -1,0 +1,5 @@
+#!/bin/sh
+# zknt: zettelkasten note tags
+# Description: gets the tags for each markdown note in the current directory
+
+grep --color=always -R -o "#[a-zA-Z].*" *.md

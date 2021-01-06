@@ -1,0 +1,3 @@
+#!/bin/sh
+
+pgrep -f kunst | xargs -r -d '\n' kill -9 && kunst

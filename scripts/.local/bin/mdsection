@@ -1,0 +1,4 @@
+#!/bin/zsh
+# Description: gets everything between a given header and the next header in a markdown file
+
+sed -n '/# '"$2"'/,/#/p' $1 | head -n -1

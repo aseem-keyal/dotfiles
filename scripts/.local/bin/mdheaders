@@ -1,0 +1,5 @@
+#!/bin/zsh
+# Description: prints all the headers in a markdown file
+# Usage: mdheaders md_filename
+
+grep "#" $1

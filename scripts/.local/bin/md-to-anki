@@ -1,0 +1,3 @@
+#!/bin/sh
+# Usage: ./md-to-anki.sh md_filename 
+grep -v -E '^# ' $1 | awk -f ~/.local/bin/md-to-anki.awk | sed 's/##//g' | sed 's/ \* / /g' | sed 's/^ //g' | sed 's/\*//g' | sed 's/$/./g'

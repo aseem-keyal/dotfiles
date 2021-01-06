@@ -1,0 +1,9 @@
+setbg &
+# xcompmgr &
+picom --experimental-backends &
+dunst &
+xset r rate 300 50 &
+sb-mpdup &
+sb-spotifyup &
+setxkbmap -option caps:escape &
+unclutter & 

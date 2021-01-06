@@ -1,0 +1,5 @@
+#!/bin/sh
+# zklp: zettelkasten links preview
+# Description: previews a note and its links as a pdf
+
+grep "&[a-zA-Z0-9-]*.md" $1 -oh | sed 's/^.//' | xargs tail -n +1 | tail -n +1 $1 - | mdpreview

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+pgrep -f "playerctl -p ncspot metadata --format \{\{mpris:artUrl\}\} --follow" | xargs -d '\n' kill -9
+(playerctl -p ncspot metadata --format '{{mpris:artUrl}}' --follow | xargs -L 1 curl -o /tmp/spotify-cover.jpg) &
+sxiv -g "250x250+1050+450" -b /tmp/spotify-cover.jpg -N "Spotify" &
