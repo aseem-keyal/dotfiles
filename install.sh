@@ -1,4 +1,9 @@
-#!/bin/sh
+#!/bin/bash
+
+user="aseem"
+root_services=(tlp)
+user_services=(mpd mpDris2 rescrobbled pulseaudio)
+local_programs=(dmenu dwm dwmblocks st)
 
 sudo pacman -Syu --noconfirm
 sudo pacman -S --noconfirm git \
@@ -67,14 +72,11 @@ sudo pacman -S --noconfirm git \
 	libva-intel-driver \
 	stow
 
-mkdir -p ~/code/ && cd ~/code && git clone https://github.com/aseem-keyal/dotfiles && cd dotfiles
-stow -t ~ */
-
 cd ~ && git clone https://aur.archlinux.org/yay-git.git && cd yay-git
 makepkg -si --noconfirm
 cd ~ && rm -rf yay-git
 
-yay -S --noeditmenu --nodiffmenu --useask --removemake lf \
+yay -S lf \
 	kunst-git \
 	libxft-bgra \
 	mpdris2 \
@@ -85,8 +87,23 @@ yay -S --noeditmenu --nodiffmenu --useask --removemake lf \
 	soulseekqt \
 	zsh-fast-syntax-highlighting
 
-sudo systemctl enable tlp
-systemctl --user enable mpd
-systemctl --user enable mpDris2
-systemctl --user enable rescrobbled
-systemctl --user enable pulseaudio
+mkdir -p ~/code/ && cd ~/code && git clone https://github.com/aseem-keyal/dotfiles && cd dotfiles
+stow -t ~ */
+
+for program in "${local_programs[@]}"; do
+	cd ~/.local/src
+	git clone https://github.com/aseem-keyal/$program
+	cd $program
+	sudo make install
+done
+
+
+for service in "${root_services[@]}"; do
+	sudo systemctl --user enable $service
+done
+
+for service in "${user_services[@]}"; do
+	systemctl --user enable $service
+done
+
+chsh -s /bin/zsh $user
