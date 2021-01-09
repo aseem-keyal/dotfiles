@@ -87,6 +87,7 @@ yay -S lf \
 	soulseekqt \
 	zsh-fast-syntax-highlighting
 
+mkdir -p ~/.cache/zsh
 mkdir -p ~/code/ && cd ~/code && git clone https://github.com/aseem-keyal/dotfiles && cd dotfiles
 stow -t ~ */
 
